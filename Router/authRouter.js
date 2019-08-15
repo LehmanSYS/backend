@@ -4,6 +4,7 @@ const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router2 = express.Router();
+const config = require("config");
 const { users } = require("../Database/Models/Users");
 
 router2.post("/", async (req, res) => {
@@ -24,7 +25,8 @@ router2.post("/", async (req, res) => {
       id: user.id,
       email: user.email
     },
-    "privateKey"
+    "myJwtKey"
+    // config.get("jwtKey")
   );
 
   res.send(token);

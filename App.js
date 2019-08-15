@@ -4,7 +4,14 @@ const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
 const PORT = 3000;
 const db = require("./Database");
+const config = require("config");
 const seedDatabase = require("./seedDatabase");
+const auth = require("./Middlewares/authMid");
+
+// if (!config.get("jwtKey")) {
+//   console.error("Config Error: jwtKey is not defined.");
+//   process.exit(1);
+// }
 
 //Force: true basically wipes the local database clean.
 //this file is only run once, when the app is started.

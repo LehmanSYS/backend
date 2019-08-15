@@ -2,7 +2,7 @@
   "name": "kens-database",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,6 +19,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "config": "^3.2.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "joi": "^14.3.1",

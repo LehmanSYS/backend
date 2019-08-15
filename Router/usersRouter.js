@@ -1,10 +1,14 @@
+const jwt = require("jsonwebtoken");
+const config = require("config");
 const express = require("express");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const router2 = express.Router();
 const { users, validate } = require("../Database/Models/Users");
+const auth = require("../Middlewares/authMid");
 
 router2.post("/", async (req, res) => {
+  //auth,
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -18,10 +22,22 @@ router2.post("/", async (req, res) => {
 
   try {
     let new_user = await users.create(req.body);
-    res.send(_.pick(new_user, ["id", "name", "email"]));
+    const token = jwt.sign(
+      {
+        id: new_user.id,
+        email: new_user.email
+      },
+      "myJwtKey"
+      // config.get("jwtKey")
+    );
+    res
+      .header("x-auth-token", token)
+      .send(_.pick(new_user, ["id", "name", "email"]));
   } catch (error) {
     res.send(error);
   }
 });
+
+router2.get("/", async (req, res) => {});
 
 module.exports = router2;
