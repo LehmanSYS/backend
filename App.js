@@ -8,8 +8,8 @@ const seedDatabase = require("./seedDatabase");
 
 //Force: true basically wipes the local database clean.
 //this file is only run once, when the app is started.
-db.sync({ force: true }).then(async () => {
-  seedDatabase(); //Then we are repopulating the wiped database with our original dummy data.
+db.sync({ force: false }).then(async () => {
+  //   seedDatabase(); //Then we are repopulating the wiped database with our original dummy data.
 
   //Middleware- Body parser is necessary for POST and PUT requests to work
   app.use(bodyParser.json());
