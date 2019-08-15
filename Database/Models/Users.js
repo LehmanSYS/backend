@@ -15,11 +15,11 @@ const users = db.define("users", {
   password: {
     type: Sequalize.STRING,
     allowNull: false
+  },
+  img: {
+    type: Sequalize.STRING,
+    allowNull: true
   }
-  //   img: {
-  //     type: Sequalize.STRING,
-  //     allowNull: true
-  //   }
 });
 
 function validateUser(user) {
