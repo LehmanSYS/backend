@@ -17,9 +17,13 @@
   },
   "homepage": "https://github.com/Arboghast/kens-database#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.15",
+    "nodemon": "^1.19.1",
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.12.3"
