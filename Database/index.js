@@ -5,9 +5,8 @@
 
 const db = require("./db");
 
-// require("./Models/Associations");
-// require("./Models/Campuses");
-// require("./Models/Students");
+require("./Models/Associations");
+require("./Models/Groups");
 require("./Models/Users");
 
 module.exports = db;
