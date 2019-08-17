@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
-const PORT = 3000;
+const PORT = 4000;
 const db = require("./Database");
 const config = require("config");
 const seedDatabase = require("./seedDatabase");
 const auth = require("./Middlewares/authMid");
 
-// if (!config.get("jwtKey")) {
+// if (!config.get("jwtKey")) {     //dsadsa
 //   console.error("Config Error: jwtKey is not defined.");
 //   process.exit(1);
 // }

@@ -20,22 +20,21 @@ router2.post("/", async (req, res) => {
   req.body.password = await bcrypt.hash(req.body.password, salt);
   console.log(req.body);
 
-  try {
-    let new_user = await users.create(req.body);
-    const token = jwt.sign(
-      {
-        id: new_user.id,
-        email: new_user.email
-      },
-      "myJwtKey"
-      // config.get("jwtKey")
-    );
-    res
-      .header("x-auth-token", token)
-      .send(_.pick(new_user, ["id", "name", "email"]));
-  } catch (error) {
-    res.send(error);
-  }
+  let new_user = await users.create(req.body);
+  console.log("created: ", new_user);
+  const token = jwt.sign(
+    {
+      id: new_user.id,
+      name: new_user.name,
+      email: new_user.email
+    },
+    "myJwtKey"
+    // config.get("jwtKey")
+  );
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(_.pick(new_user, ["id", "name", "email"]));
 });
 
 router2.get("/", async (req, res) => {});
