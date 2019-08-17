@@ -14,22 +14,25 @@ router2.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await users.findOne({ where: { email: req.body.email } });
-  if (!user) return res.status(400).send("Invalid email or password.");
+  if (!user) return res.status(400).send("Invalid email or password");
 
   const valid = await bcrypt.compare(req.body.password, user.password);
-  if (!valid) return res.status(400).send("Invalid email or password.");
+  if (!valid) return res.status(400).send("Invalid email or password");
   //   console.log(valid);
 
   const token = jwt.sign(
     {
       id: user.id,
+      name: user.name,
       email: user.email
     },
     "myJwtKey"
     // config.get("jwtKey")
   );
-
-  res.send(token);
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(_.pick(user, ["id", "name", "email"]));
 });
 
 function validate(req) {
