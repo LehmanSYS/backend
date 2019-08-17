@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Arboghast/kens-database#readme",
   "dependencies": {
+    "@google/maps": "^0.5.5",
+    "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "config": "^3.2.2",
@@ -28,6 +30,8 @@
     "nodemon": "^1.19.1",
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.12.3"
+    "sequelize": "^5.12.3",
+    "socket-io": "^1.0.0",
+    "socket.io": "^2.2.0"
   }
 }

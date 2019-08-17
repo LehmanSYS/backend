@@ -1,8 +1,16 @@
 const express = require("express");
 const app = express();
+const PORT = 4000;
+const server = app.listen(PORT, () => console.log(`Sockets are running on ${PORT}`))
+const io = require('socket.io')(server);  //Socket component
+const groupHandler = require('./Socket/GroupHandler');
+const gh = new groupHandler;
+module.exports = gh;
+require('./Socket')(io);
+
+
 const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
-const PORT = 4000;
 const db = require("./Database");
 const config = require("config");
 const seedDatabase = require("./seedDatabase");
@@ -30,7 +38,4 @@ db.sync({ force: false }).then(async () => {
   });
 
   app.use("/api", apiRouter); //init express app
-  app.listen(PORT, () => {
-    console.log(`Server is running on PORT${PORT}`);
-  });
 });
