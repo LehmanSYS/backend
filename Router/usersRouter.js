@@ -37,6 +37,9 @@ router2.post("/", async (req, res) => {
     .send(_.pick(new_user, ["id", "name", "email"]));
 });
 
-router2.get("/", async (req, res) => {});
+router2.get("/", async (req, res) => {
+  let all = await users.findAll();
+  return res.status(200).send(all);
+});
 
 module.exports = router2;
