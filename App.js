@@ -8,7 +8,7 @@ const config = require("config");
 const seedDatabase = require("./seedDatabase");
 const auth = require("./Middlewares/authMid");
 
-// if (!config.get("jwtKey")) {
+// if (!config.get("jwtKey")) {     //dsadsa
 //   console.error("Config Error: jwtKey is not defined.");
 //   process.exit(1);
 // }
