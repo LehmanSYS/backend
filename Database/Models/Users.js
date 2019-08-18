@@ -1,24 +1,32 @@
-const Sequalize = require("sequelize");
+const Sequelize = require("sequelize");
 const db = require("../db");
 const Joi = require("joi");
 
   const Users = db.define("Users", {
     name: {
-      type: Sequalize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     email: {
-      type: Sequalize.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
     password: {
-      type: Sequalize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
-    img: {
-      type: Sequalize.STRING,
+    image: {
+      type: Sequelize.STRING,
       allowNull: true
+    },
+    long: {
+      type: Sequelize.DECIMAL,
+      allowNull: false
+    },
+    lat: {
+      type: Sequelize.DECIMAL,
+      allowNull: false
     }
   });
 

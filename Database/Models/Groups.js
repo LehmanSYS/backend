@@ -1,18 +1,18 @@
-const Sequalize = require("sequelize");
+const Sequelize = require("sequelize");
 const db = require("../db");
 
   const Groups = db.define("Groups", {
     name: {
-      type: Sequalize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     longitude: {
-      type: Sequalize.DECIMAL,
+      type: Sequelize.DECIMAL,
       allowNull: false
       // unique: true
     },
     latitude: {
-      type: Sequalize.DECIMAL,
+      type: Sequelize.DECIMAL,
       allowNull: false
     }
   });
