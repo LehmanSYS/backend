@@ -1,3 +1,5 @@
+const polyline = require('polyline');
+
 const googleMapsClient = require('@google/maps').createClient({
     key: 'AIzaSyDoRlTwsYiTo7jhQsFb0UWYOTqXrdHnPHM',
     Promise: Promise
@@ -19,9 +21,16 @@ function getUserRoute(formData){ // object full of user and destination properti
     }
     googleMapsClient.directions(request).asPromise()
     .then(response => {
-        //console.log(response);
-        //console.log(response.json);
-        console.log(response.json.routes);
+        let routes = response.json.routes;
+        let path = "";
+        if (routes.length > 0){
+            let pathLine = routes[0].overview_polyline.points;
+            //path is an array of arrays of coordinates
+            //after path is computed, send it to the map component on the front-end and create a PathLayer based on these coordinates
+            //(note that path returns coordinates in order [latitude, longitude], while PathLayer accepts coordinates in order [longitude, latitude])
+            path = polyline.decode(pathLine);
+            console.log(path);
+        }
     })
     .catch(err => {
         console.log(err);
