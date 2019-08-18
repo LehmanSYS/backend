@@ -22,7 +22,9 @@ function validateUser(user) {
     password: Joi.string()
       .min(5)
       .max(1024)
-      .required()
+      .required(),
+    long: Joi.number(),
+    lat: Joi.number()
   };
   return Joi.validate(user, schema);
 }
