@@ -4,8 +4,9 @@ const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
 const PORT = 4000;
 const db = require("./Database");
+//const db = require('./Database/Master');
 const config = require("config");
-const seedDatabase = require("./seedDatabase");
+//const seedDatabase = require("./seedDatabase");
 const auth = require("./Middlewares/authMid");
 
 // if (!config.get("jwtKey")) {     //dsadsa

@@ -4,7 +4,7 @@ const express = require("express");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const router2 = express.Router();
-const { users, validate } = require("../Database/Models/Users");
+const { users, validate } = require("../Database/index");
 const auth = require("../Middlewares/authMid");
 
 router2.post("/", async (req, res) => {
@@ -38,6 +38,7 @@ router2.post("/", async (req, res) => {
 });
 
 router2.get("/", async (req, res) => {
+  console.log(users);
   let all = await users.findAll();
   return res.status(200).send(all);
 });

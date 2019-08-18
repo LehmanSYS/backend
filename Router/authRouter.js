@@ -7,7 +7,7 @@ const router2 = express.Router();
 const config = require("config");
 const { users } = require("../Database/Models/Users");
 
-router2.post("/", async (req, res) => {
+router2.post("/", async (req, res) => { 
   //   console.log(req.body);
 
   const { error } = validate(req.body);

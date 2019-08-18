@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const campusRouter = require("./campusRouter");
-const studentRouter = require("./studentRouter");
+//const campusRouter = require("./campusRouter");
+//const studentRouter = require("./studentRouter");
 const usersRouter = require("./usersRouter");
-const authRouter = require("../Router/authRouter");
-const groupsRouter = require("../Router/groupsRouter");
+const authRouter = require("./authRouter");
+const groupsRouter = require("./groupsRouter");
 
 // router.use("/campuses", campusRouter);
 // router.use("/students", studentRouter);

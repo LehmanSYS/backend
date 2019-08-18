@@ -1,14 +1,10 @@
-const groups = require("./Groups");
-const users = require("./Users");
+const Groups = require('./Groups');
+const {Users} = require('./Users');
 
-//Associations between tables, to link primary keys to foreign keys
-// students.belongsTo(campus);
-// campus.hasMany(students);
-
-users.belongsToMany(groups);
-groups.belongsToMany(user);
+Groups.belongsToMany(Users, {through: 'GroupUsers'});
+Users.belongsToMany(Groups, {through: 'GroupUsers'});
 
 module.exports = {
-  users,
-  groups
-};
+    Groups,
+    Users
+}

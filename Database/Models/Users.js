@@ -2,25 +2,25 @@ const Sequalize = require("sequelize");
 const db = require("../db");
 const Joi = require("joi");
 
-const users = db.define("users", {
-  name: {
-    type: Sequalize.STRING,
-    allowNull: false
-  },
-  email: {
-    type: Sequalize.STRING,
-    allowNull: false,
-    unique: true
-  },
-  password: {
-    type: Sequalize.STRING,
-    allowNull: false
-  },
-  img: {
-    type: Sequalize.STRING,
-    allowNull: true
-  }
-});
+  const Users = db.define("Users", {
+    name: {
+      type: Sequalize.STRING,
+      allowNull: false
+    },
+    email: {
+      type: Sequalize.STRING,
+      allowNull: false,
+      unique: true
+    },
+    password: {
+      type: Sequalize.STRING,
+      allowNull: false
+    },
+    img: {
+      type: Sequalize.STRING,
+      allowNull: true
+    }
+  });
 
 function validateUser(user) {
   const schema = {
@@ -42,5 +42,4 @@ function validateUser(user) {
 }
 
 // exports.users = users; // ------------------- module.exports
-module.exports = users; // ------------------- module.exports
-exports.validate = validateUser;
+module.exports= Users;
