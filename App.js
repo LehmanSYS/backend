@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const PORT = 4000;
 const db = require("./Database");
 const seed = require('./Data/Seed');
-const seedAssc = require('./Data/SeedAssociations');
 const config = require("config");
 const auth = require("./Middlewares/authMid");
 
@@ -18,7 +17,6 @@ const auth = require("./Middlewares/authMid");
 //this file is only run once, when the app is started.
 db.sync({ force: true }).then(async () => {
   seed();
-  seedAssc();
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -31,6 +29,6 @@ db.sync({ force: true }).then(async () => {
 
   app.use("/api", apiRouter);
   app.listen(PORT, () => {
-    console.log(`Server is running on PORT${PORT}`);
+    console.log(`Server is running on PORT ${PORT}`);
   });
 });

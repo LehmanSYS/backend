@@ -3,7 +3,7 @@ const db = require("../db");
 
   const Groups = db.define("Groups", {
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
     longitude: {

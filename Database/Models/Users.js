@@ -4,20 +4,20 @@ const Joi = require("joi");
 
   const Users = db.define("Users", {
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
     email: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
       unique: true
     },
     password: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
     image: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: true
     },
     long: {

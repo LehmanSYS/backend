@@ -4,13 +4,14 @@ const Groups = require("../Database/Models/Groups");
 const Users = require("../Database/Models/Users");
 
 router.get("/", (req, res, next) => {
-  Groups.findAll()
+  Groups.findAll({include: {model: Users}})
     .then(res.send.bind(res))
     .catch(next)
 });
 
 router.get('/:name', (req, res, next) => {
-  Groups.findByPk(req.params.name, {
+  Groups.findAll({
+    where: {name: req.params.name},
     include: {model: Users}
   })
     .then(res.send.bind(res))
