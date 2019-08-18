@@ -19,7 +19,7 @@ io.on('connection', function (socket) {
   socket.on('create', async (formData) => {
       let roomName = formData.name;
       console.log(`attempting to create ${roomName}`)
-      if (!groupHandler.exists(roomName)) {
+      if (!groupHandler.exists(roomName)) { 
           groupHandler.addGroup(formData);
           socket.join(roomName);
           socket.emit('success-group-made',formData);
