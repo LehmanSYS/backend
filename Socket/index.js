@@ -1,12 +1,12 @@
 const groupHandler = require('../App');
 const api = require('../Api');
 
-module.exports = io => {
+module.exports = (io) => {
 
     io.on('connection', function (socket) {
         console.log(`${socket.id} has connected to the server`);
 
-        socket.on('create', (formData) => {
+        socket.on('create', async (formData) => {
             let roomName = formData.name;
             console.log(`attempting to create ${roomName}`)
             if (!groupHandler.exists(roomName)) {
@@ -21,7 +21,7 @@ module.exports = io => {
                         latitude: formData.latitude,
                         longitude: formData.longitude
                     }
-                    api(request);
+                    socket.emit('route', await api(request));
                 }
             }
             else {

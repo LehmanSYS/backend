@@ -5,7 +5,6 @@
 
 const db = require("./db");
 
-require("./Models/Associations");
 require("./Models/Groups");
 require("./Models/Users");
 

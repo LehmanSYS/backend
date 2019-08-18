@@ -29,7 +29,7 @@ function getUserRoute(formData){ // object full of user and destination properti
             //after path is computed, send it to the map component on the front-end and create a PathLayer based on these coordinates
             //(note that path returns coordinates in order [latitude, longitude], while PathLayer accepts coordinates in order [longitude, latitude])
             path = polyline.decode(pathLine);
-            console.log(path);
+            return path;
         }
     })
     .catch(err => {
