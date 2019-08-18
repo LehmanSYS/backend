@@ -12,8 +12,8 @@ require('./Socket')(io);
 const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
 const db = require("./Database");
+const seed = require('./Data/Seed');
 const config = require("config");
-const seedDatabase = require("./seedDatabase");
 const auth = require("./Middlewares/authMid");
 
 // if (!config.get("jwtKey")) {     //dsadsa
@@ -24,9 +24,7 @@ const auth = require("./Middlewares/authMid");
 //Force: true basically wipes the local database clean.
 //this file is only run once, when the app is started.
 db.sync({ force: false }).then(async () => {
-  //   seedDatabase(); //Then we are repopulating the wiped database with our original dummy data.
-
-  //Middleware- Body parser is necessary for POST and PUT requests to work
+  //seed();
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -37,5 +35,8 @@ db.sync({ force: false }).then(async () => {
     next();
   });
 
-  app.use("/api", apiRouter); //init express app
+  app.use("/api", apiRouter);
+  app.listen(PORT, () => {
+    console.log(`Server is running on PORT ${PORT}`);
+  });
 });
