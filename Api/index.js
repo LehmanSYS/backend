@@ -31,9 +31,11 @@ function getUserRoute(formData){ // object full of user and destination properti
             path = polyline.decode(pathLine);
             return path;
         }
+        return null;
     })
     .catch(err => {
         console.log(err);
+        return null;
     })
 }
 
