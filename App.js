@@ -1,8 +1,16 @@
 const express = require("express");
 const app = express();
+const PORT = 4000;
+const server = app.listen(PORT, () => console.log(`Sockets are running on ${PORT}`))
+const io = require('socket.io')(server);  //Socket component
+const groupHandler = require('./Socket/GroupHandler');
+const gh = new groupHandler;
+module.exports = gh;
+require('./Socket')(io);
+
+
 const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
-const PORT = 4000;
 const db = require("./Database");
 const seed = require('./Data/Seed');
 const config = require("config");
