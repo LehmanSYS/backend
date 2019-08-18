@@ -37,13 +37,13 @@ router2.post("/", async (req, res) => {
   let user = await users.findOne({ where: { email: req.body.email } });
   if (user) return res.status(400).send("User already registered.");
 
-  console.log(req.body);
+  //console.log(req.body);
   const salt = await bcrypt.genSalt(10);
   req.body.password = await bcrypt.hash(req.body.password, salt);
-  console.log(req.body);
+  //console.log(req.body);
 
   let new_user = await users.create(req.body);
-  console.log("created: ", new_user);
+  //console.log("created: ", new_user);
   const token = jwt.sign(
     {
       id: new_user.id,
