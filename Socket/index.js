@@ -1,7 +1,7 @@
 const groupHandler = require('../App');
 const api = require('../Api');
 
-function startSocket(io){
+module.exports = (io) => {
 
     io.on('connection', function (socket) {
         console.log(`${socket.id} has connected to the server`);
@@ -41,5 +41,3 @@ function startSocket(io){
         });
     });
 }
-
-//module.exports = startSocket;

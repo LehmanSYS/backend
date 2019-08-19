@@ -35,7 +35,7 @@ router.get('/:name', (req, res, next) => { //get database by NAME
 
 router.post('/', (req, res, next) => { //Add new group to database
   Groups.findOrCreate({
-    where: req.body
+    where: req.body.newGroup
   })
     .then(groups => {
       if(groups[1])
@@ -51,13 +51,13 @@ router.post('/', (req, res, next) => { //Add new group to database
     .catch(next)
 });
 
-router.post('/', (req,res,next) =>{   //associate users to a group
-  Groups.findAll({where: {name : req.params.name}})
-  .then(group =>{
-    //
-  })
-  .catch(err => console.log(err))
-})
+// router.post('/', (req,res,next) =>{   //associate users to a group
+//   Groups.findAll({where: {name : req.params.name}})
+//   .then(group =>{
+//     //
+//   })
+//   .catch(err => console.log(err))
+// })
 
 router.delete('/:name', async (req, res, next) => {   //delete a group
   await Groups.findAll({ where: { name: req.params.name } })
