@@ -7,6 +7,7 @@ function startSocket(io){
         console.log(`${socket.id} has connected to the server`);
 
         socket.on('create', async (formData) => {
+            console.log("called");
             let roomName = formData.name;
             console.log(`attempting to create ${roomName}`)
             if (!groupHandler.exists(roomName)) {
@@ -14,6 +15,7 @@ function startSocket(io){
                 socket.join(roomName);
                 socket.emit('success-group-made',formData);
                 console.log(`${socket.id} has joined and create ${roomName}`)
+                console.log(formData.users.length);
                 for(let i = 0; i< formData.users.length; i++)
                 {
                     let request = {
