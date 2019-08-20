@@ -15,7 +15,7 @@ require('./Socket')(io);
 
 const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
-const db = require("./Database");
+const {db} = require("./Database");
 const seed = require('./Data/Seed');
 const config = require("config");
 const auth = require("./Middlewares/authMid");

@@ -4,11 +4,10 @@ const express = require("express");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const router2 = express.Router();
-const users = require("../Database/Models/Users");
 const auth = require("../Middlewares/authMid");
 const Joi = require("joi");
-const Groups = require("../Database/Models/Groups");
-const Users = require("../Database/Models/Users");
+const {Groups} = require("../Database");
+const {Users} = require("../Database");
 
 function validateUser(user) {
   const schema = {

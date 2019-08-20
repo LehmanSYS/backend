@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Groups = require("../Database/Models/Groups");
-const Users = require("../Database/Models/Users");
+const {Groups} = require("../Database");
+const {Users} = require("../Database");
 
 function isEmpty(obj) {
   for (var key in obj) {
@@ -59,7 +59,7 @@ router.post('/', (req, res, next) => { //Add new group to database //SET ASSOCIA
     .catch(next)
 });
 
-router.post('/addUsers', (req,res,next) =>{   //associate users to a group
+router.put('/add', (req,res,next) =>{   //associate users to a group
   let group = null;
   Groups.findByPk(req.body.groupId)
   .then(res => group = res)
@@ -67,12 +67,12 @@ router.post('/addUsers', (req,res,next) =>{   //associate users to a group
 
   Users.findByPk(req.body.id)
   .then(user =>{
-      user.addGroups(group);
+      user.addGroups(group);//
   })
   .catch(err => console.log(err))
 })
 
-router.post('/removeUser', (req,res,next) =>{   //req is reciving login info 
+router.put('/remove', (req,res,next) =>{   //req is reciving login info 
   let user = null;
   Users.findByPk(req.body.id)
   .then(res => {
@@ -83,6 +83,7 @@ router.post('/removeUser', (req,res,next) =>{   //req is reciving login info
   Groups.findByPk(req.body.groupId)
   .then(group =>{
       group.removeUsers(user);
+      res.status(200).send(group);
   })
   .catch(err => console.log(err))
 })

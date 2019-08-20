@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 const api = require('../Api');
 
 router.post('/', async (req,res,next) =>{ //returns the route to destionation for one user
