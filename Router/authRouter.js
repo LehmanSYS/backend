@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router2 = express.Router();
 const config = require("config");
-const {users} = require("../Database");
+const { Users } = require("../Database");
 
 function validate(req) {
   const schema = {
@@ -28,9 +28,11 @@ router2.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  console.log(users);
-  let user = await users.findOne({ where: { email: req.body.email } });
-  if (!user) return res.status(400).send("Invalid email or password");
+    let user = await Users.findOne({ where: { email: req.body.email } });
+    if (!user) return res.status(400).send("Invalid email or password");
+    //console.log("user: ", user);
+    const valid = await bcrypt.compare(req.body.password, user.password);
+    if (!valid) return res.status(400).send("Invalid email or password");
 
   const valid = await bcrypt.compare(req.body.password, user.password);
   if (!valid) return res.status(400).send("Invalid email or password");
