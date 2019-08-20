@@ -17,14 +17,11 @@ router.get("/", (req, res, next) => { // get all groups
     .catch(next)
 });
 
-router.get('/:name', (req, res, next) => { //get database by NAME
-  Groups.findAll({
-    where: { name: req.params.name },
-    include: { model: Users }
-  })
+router.get('/:id', (req, res, next) => { //get database by NAME
+  Groups.findByPk(req.params.id)
     .then(group => {
       if (!isEmpty(group)) {
-        res.status(200).send(group);
+        res.status(200).send(group.name);
       }
       else {
         res.status(404).send();
