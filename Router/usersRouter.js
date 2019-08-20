@@ -6,8 +6,8 @@ const bcrypt = require("bcrypt");
 const router2 = express.Router();
 const auth = require("../Middlewares/authMid");
 const Joi = require("joi");
-const {Groups} = require("../Database");
-const {Users} = require("../Database");
+const { Groups } = require("../Database");
+const { Users } = require("../Database");
 
 function validateUser(user) {
   const schema = {
@@ -36,7 +36,7 @@ router2.post("/", async (req, res) => {
   console.log("coming: ", req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let user = await users.findOne({ where: { email: req.body.email } });
+  let user = await Users.findOne({ where: { email: req.body.email } });
   if (user) return res.status(400).send("User already registered.");
 
   //console.log(req.body);
@@ -44,7 +44,7 @@ router2.post("/", async (req, res) => {
   req.body.password = await bcrypt.hash(req.body.password, salt);
   //console.log(req.body);
 
-  let new_user = await users.create(req.body);
+  let new_user = await Users.create(req.body);
   //console.log("created: ", new_user);
   const token = jwt.sign(
     {
@@ -58,12 +58,12 @@ router2.post("/", async (req, res) => {
   res
     .header("x-auth-token", token)
     .header("access-control-expose-headers", "x-auth-token")
-    .send(_.pick(new_user, ["id", "name", "email"]));
+    .send("Registration Successful !");
 });
 
 router2.get("/", async (req, res) => {
   //console.log(users);
-  let all = await Users.findAll({include: [{model: Groups}]});
+  let all = await Users.findAll({ include: [{ model: Groups }] });
   return res.status(200).send(all);
 });
 
