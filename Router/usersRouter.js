@@ -4,9 +4,10 @@ const express = require("express");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const router2 = express.Router();
-const users = require("../Database/Models/Users");
 const auth = require("../Middlewares/authMid");
 const Joi = require("joi");
+const {Groups} = require("../Database");
+const {Users} = require("../Database");
 
 function validateUser(user) {
   const schema = {
@@ -60,8 +61,8 @@ router2.post("/", async (req, res) => {
 });
 
 router2.get("/", async (req, res) => {
-  console.log(users);
-  let all = await users.findAll();
+  //console.log(users);
+  let all = await Users.findAll({include: [{model: Groups}]});
   return res.status(200).send(all);
 });
 

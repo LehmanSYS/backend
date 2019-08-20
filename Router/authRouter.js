@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router2 = express.Router();
 const config = require("config");
-const users = require("../Database/Models/Users");
+const {users} = require("../Database");
 
 function validate(req) {
   const schema = {

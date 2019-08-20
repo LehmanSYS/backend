@@ -17,5 +17,8 @@ const db = require("../db");
     }
   });
 
+  // Groups.prototype.associate = function(user){
+  //   this.addUsers(user);
+  // }
 module.exports = Groups;
 

@@ -5,39 +5,32 @@ module.exports = (io) => {
 
     io.on('connection', function (socket) {
         console.log(`${socket.id} has connected to the server`);
-
-        socket.on('create', async (formData) => {
-            console.log("called");
-            let roomName = formData.name;
+      
+        socket.on('create', roomName => {
             console.log(`attempting to create ${roomName}`)
-            if (!groupHandler.exists(roomName)) {
-                groupHandler.addGroup(formData);
+            if (!groupHandler.exists(roomName)) { 
+                groupHandler.addGroup(roomName);
                 socket.join(roomName);
-                socket.emit('success-group-made',formData);
                 console.log(`${socket.id} has joined and create ${roomName}`)
-                console.log(formData.users.length);
-                for(let i = 0; i< formData.users.length; i++)
-                {
-                    let request = {
-                        user: formData.users[i],
-                        latitude: formData.latitude,
-                        longitude: formData.longitude
-                    }
-                    socket.emit('route', await api(request));
-                }
+                io.sockets.in(roomName).emit('joined', socket.id);
             }
             else {
                 console.log("Room already exists");
             }
         });
-
+      
         socket.on('disconnect', function(){
             console.log('user disconnected');
         });
-
-        socket.on('update', (roomName) => {
-            let data = []; //user routes to destination
-            io.sockets.in(roomName).emit('routes', data);
+      
+        socket.on('leave-current-room', (roomName) => {
+            socket.leave(roomName);
+            console.log(`${socket.id} has left room ${roomName}`)
         });
-    });
+
+        socket.on('enter-group', (roomName) => {
+            socket.join(roomName);
+            console.log(`${socket.id} has joined room ${roomName}`);
+        })
+      });
 }

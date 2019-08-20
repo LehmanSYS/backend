@@ -4,9 +4,8 @@ class GroupHandler{
         this.groups = [];
     }
 
-    addGroup(formData){
-        const {users, name, long, lat} = formData;
-        this.groups.push(new Group(users, name, long, lat));
+    addGroup(roomName){
+        this.groups.push(new Group(roomName));
     }
 
     exists(groupName){
