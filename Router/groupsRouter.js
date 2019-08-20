@@ -31,22 +31,28 @@ router.get('/:id', (req, res, next) => { //get database by NAME
 });
 
 router.post('/', (req, res, next) => { //Add new group to database //SET ASSOCIATIONS OR USERS
+  console.log(req.body.newGroup.name);
   Groups.findAll({
-    where: {name:req.body.name}
+    where: {name : req.body.newGroup.name.trim()}
   })
     .then(async group => {
+      console.log(isEmpty(group));
       if(isEmpty(group)){
-        for(let i =0; i < req.body.users.length; i++)
+        //console.log(req.body.newGroup);
+        let {longitude, paths,name, latitude} = req.body.newGroup;
+        let builtGroup = await Groups.create({longitude,latitude,paths,name});
+        //console.log(builtGroup);
+        for(let i =0; i < req.body.newGroup.users.length; i++)
         {
           let user = null;
-          await Users.findByPk(req.body.users[i].id)
+          await Users.findByPk(req.body.newGroup.users[i].id)
           .then(res => {
             //console.log(res);
             user = res
           })
           .catch(err => console.log(err))  
           // console.group(user);
-          // group.setUsers(user);
+           builtGroup.addUsers(user);
         }
         res.status(200).send(group);
       }

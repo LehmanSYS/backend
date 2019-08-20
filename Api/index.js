@@ -24,6 +24,7 @@ async function getUserRoute(formData){ // object full of user and destination pr
         let routes = response.json.routes;
         if (routes.length > 0){
             let pathLine = routes[0].overview_polyline.points;
+            //console.log(pathLine);
             //path is an array of arrays of coordinates
             //after path is computed, send it to the map component on the front-end and create a PathLayer based on these coordinates
             //(note that path returns coordinates in order [latitude, longitude], while PathLayer accepts coordinates in order [longitude, latitude])

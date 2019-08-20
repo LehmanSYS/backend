@@ -44,9 +44,9 @@ const associateGroupsTable = async () => {
 const seedDatabase = async () => {
   try {
     await populateUsersTable(users);
-    await populateGroupsTable(groups);
-    await associateUsersTable();
-    await associateGroupsTable();
+    //await populateGroupsTable(groups);
+    //await associateUsersTable();
+    //await associateGroupsTable();
     console.log('database has been re-seeded');
   }
   catch (err) {
