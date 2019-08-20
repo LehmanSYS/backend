@@ -33,6 +33,7 @@ function validateUser(user) {
 router2.post("/", async (req, res) => {
   //auth,
   const { error } = validateUser(req.body);
+  console.log("coming: ", req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await users.findOne({ where: { email: req.body.email } });
