@@ -1,11 +1,15 @@
 const Groups = require("../Database/Models/Groups");
 const Users = require("../Database/Models/Users");
+const Invitations = require('../Database/Models/Invitations');
+const Messages = require('../Database/Models/Messages');
 
 const groups = require('./groups');
 const users = require('./users');
 
 const builtUsersArr = [];
 const builtGroupArr = [];
+const builtMessageArr = [];
+const builtInvitationArr = [];
 function getRandomInt(x) {
   return Math.floor((Math.random() * x) + 1);
 }
@@ -23,6 +27,24 @@ const populateGroupsTable = async (groups) => {
     let current = groups[i];
     let builtGroup = await Groups.create(current);
     builtGroupArr.push(builtGroup);
+  }
+}
+
+const populateMessagesTable = async(messages) =>{
+  for(let i = 0; i< messages.length; i++)
+  {
+    let current = messages[i];
+    let builtMessage = Messages.create(current);
+    builtMessageArr.push(builtMessage);
+  }
+}
+
+const populateInvitationssTable = async(invitations) =>{
+  for(let i = 0; i< invitations.length; i++)
+  {
+    let current = invitations[i];
+    let builtMessage = create(current);
+    builtMessageArr.push(builtMessage);
   }
 }
 
@@ -44,9 +66,9 @@ const associateGroupsTable = async () => {
 const seedDatabase = async () => {
   try {
     await populateUsersTable(users);
-    //await populateGroupsTable(groups);
-    //await associateUsersTable();
-    //await associateGroupsTable();
+    await populateGroupsTable(groups);
+    await associateUsersTable();
+    await associateGroupsTable();
     console.log('database has been re-seeded');
   }
   catch (err) {
