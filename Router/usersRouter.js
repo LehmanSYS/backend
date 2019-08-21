@@ -8,6 +8,8 @@ const auth = require("../Middlewares/authMid");
 const Joi = require("joi");
 const { Groups } = require("../Database");
 const { Users } = require("../Database");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 function validateUser(user) {
   const schema = {
@@ -61,10 +63,36 @@ router2.post("/", async (req, res) => {
     .send("Registration Successful !");
 });
 
+//returns a list of all users
 router2.get("/", async (req, res) => {
-  //console.log(users);
   let all = await Users.findAll({ include: [{ model: Groups }] });
   return res.status(200).send(all);
 });
+
+//returns a list of all users exluding loged in user
+router2.put('/', async (req, res) => {
+  let data = req.body.user
+  let all = await Users.findAll({
+    where: {
+      id: {
+        [Op.not]: data.id
+      }
+    }
+  });
+  return res.status(200).send(all);
+})
+
+router2.put('/id', async (req, res) => { //return user by pk
+  let all = await Users.findAll({
+    where: {
+      id : req.body.id
+    },
+    include: [{
+      model: Groups
+    }]
+  });
+
+  return res.status(200).send(all);
+})
 
 module.exports = router2;

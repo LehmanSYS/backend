@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const {Groups} = require("../Database");
 const {Users} = require("../Database");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 function isEmpty(obj) {
   for (var key in obj) {
@@ -11,58 +13,65 @@ function isEmpty(obj) {
   return true;
 }
 
-router.get("/", (req, res, next) => { // get all groups
-  Groups.findAll({ include: [{all: true}] })
-    .then(res.send.bind(res))
-    .catch(next)
-});
-
-router.get('/:id', (req, res, next) => { //get database by NAME
+router.get('/:id', (req,res) => {
   Groups.findByPk(req.params.id)
-    .then(group => {
-      if (!isEmpty(group)) {
-        res.status(200).send(group.name);
-      }
-      else {
-        res.status(404).send();
-      }
-    })
-    .catch(next)
+  .then(response => {
+    res.status(200).send(response)
+  })
+  .catch(err => console.log(err))
+})
+
+router.get("/", (req, res, next) => { // get all groups
+  Groups.findAll({
+    include: [{all:true}]
+  })
+  .then(result => {
+    res.status(200).send(result);
+  })
+  .catch(next)
 });
 
-router.post('/', (req, res, next) => { //Add new group to database //SET ASSOCIATIONS OR USERS
-  console.log(req.body.newGroup.name);
+router.put("/", (req, res, next) => { // get all users from group
+  let data = req.body
+  Groups.findAll({
+    where:{
+      id: data.id
+    }
+    , include: [{
+      model : Users
+    }]
+  })
+  .then(result => {
+    res.status(200).send(result[0].Users);
+  })
+  .catch(next)
+});
+
+router.post('/', (req, res) => { //Add new group to database with users assosiated with new group
   Groups.findAll({
     where: {name : req.body.newGroup.name.trim()}
   })
     .then(async group => {
-      console.log(isEmpty(group));
       if(isEmpty(group)){
-        //console.log(req.body.newGroup);
-        let {longitude, paths,name, latitude} = req.body.newGroup;
-        let builtGroup = await Groups.create({longitude,latitude,paths,name});
-        //console.log(builtGroup);
+        let {longitude, name, latitude} = req.body.newGroup;
+        let builtGroup = await Groups.create({longitude,latitude,name});
         for(let i =0; i < req.body.newGroup.users.length; i++)
         {
           let user = null;
-          await Users.findByPk(req.body.newGroup.users[i].id)
-          .then(res => {
-            //console.log(res);
-            user = res
-          })
-          .catch(err => console.log(err))  
-          // console.group(user);
-           builtGroup.addUsers(user);
+          try{
+            user = await Users.findByPk(req.body.newGroup.users[i].id)
+          }
+          catch(err){console.log(err)}
+          builtGroup.addUsers(user);
         }
-        res.status(200).send(group);
+        res.status(200).send(builtGroup.dataValues);
       }
       else
       {
         res.status(400).send();
-        console.log('Group Already Exists');
       }  
     })
-    .catch(next)
+    .catch(err => console.log(err))
 });
 
 router.put('/add', (req,res,next) =>{   //associate users to a group
@@ -78,20 +87,30 @@ router.put('/add', (req,res,next) =>{   //associate users to a group
   .catch(err => console.log(err))
 })
 
-router.put('/remove', (req,res,next) =>{   //req is reciving login info 
+router.put('/remove', async(req,res,next) =>{   //req is reciving login info 
   let user = null;
-  Users.findByPk(req.body.id)
+  await Users.findByPk(req.body.id)
   .then(res => {
     user = res;
   })
   .catch(err => console.log(err))
 
-  Groups.findByPk(req.body.groupId)
+  await Groups.findByPk(req.body.groupId)
   .then(group =>{
       group.removeUsers(user);
       res.status(200).send(group);
   })
   .catch(err => console.log(err))
+})
+
+router.put('/users',async (req,res) =>{
+  let group = await Groups.findByPk(req.body.groupId).catch(e => console.log(e))
+  for(let i = 0; i < req.body.users.length; i++)
+  {
+    let user = await Users.findByPk(req.body.users[i].id).catch(e=>console.log(e))
+    group.addUsers(user)
+  }
+  res.status(200).send();
 })
 
 router.delete('/:name', async (req, res, next) => {   //delete a group
