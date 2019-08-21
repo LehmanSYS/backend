@@ -7,7 +7,7 @@ let groupsArray = [
     {
         name: "Group 2",
         latitude: 40.211234,
-        longitude: -70.123456
+        longitude: -70.123456,
     }
 ];
 

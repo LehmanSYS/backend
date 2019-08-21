@@ -4,7 +4,6 @@ const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router2 = express.Router();
-const config = require("config");
 const users = require("../Database/Models/Users");
 
 function validate(req) {
