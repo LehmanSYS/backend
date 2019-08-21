@@ -1,10 +1,7 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
 const express = require("express");
-const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const router2 = express.Router();
-const auth = require("../Middlewares/authMid");
 const Joi = require("joi");
 const { Groups } = require("../Database");
 const { Users } = require("../Database");
@@ -95,4 +92,23 @@ router2.put('/id', async (req, res) => { //return user by pk
   return res.status(200).send(all);
 })
 
+router2.post('/invitation', async(req,res) =>{ //add invitations to a user
+  let sender = req.body.newGroup.name;
+  let groupName = req.body.newGroup.groupName;
+  let users = req.body.newGroup.users;
+  for(let i = 0; i < users.length; i++)
+  {
+    let user = await Users.findByPk(users[i].id).catch(e => console.log(e))
+    user.update({
+      inviteSender: sender,
+      inviteGroup: groupName
+    }).catch(err=>console.log(err))
+  }
+  res.status(200).send();
+})
+
+router2.get('/:id', async(req,res)=>{
+  let user = await Users.findByPk(req.params.id).catch(e => console.log(e))
+  res.status(200).send(user);
+})
 module.exports = router2;

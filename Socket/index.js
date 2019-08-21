@@ -11,7 +11,7 @@ module.exports = (io) => {
             if (!groupHandler.exists(roomName)) { 
                 groupHandler.addGroup(roomName);
                 socket.join(roomName);
-                console.log(`${socket.id} has joined and create ${roomName}`)
+                console.log(`${socket.id} has joined and created ${roomName}`)
                 io.sockets.in(roomName).emit('joined', socket.id);
             }
             else {

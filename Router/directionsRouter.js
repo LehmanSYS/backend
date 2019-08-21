@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../Api');
-const geoLocation = require('../Geocode');
+const geoLocation = require('../Api/geocode');
 
 router.post('/', async (req,res) =>{ //returns the route to destionation for all user
     let userPaths = [];

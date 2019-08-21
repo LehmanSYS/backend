@@ -13,7 +13,7 @@ function isEmpty(obj) {
   return true;
 }
 
-router.get('/:id', (req,res) => {
+router.get('/:id', (req,res) => { //find group by primary key/id
   Groups.findByPk(req.params.id)
   .then(response => {
     res.status(200).send(response)
@@ -31,7 +31,7 @@ router.get("/", (req, res, next) => { // get all groups
   .catch(next)
 });
 
-router.put("/", (req, res, next) => { // get all users from group
+router.put("/", (req, res, next) => { // get all users from a specific group
   let data = req.body
   Groups.findAll({
     where:{
@@ -47,7 +47,7 @@ router.put("/", (req, res, next) => { // get all users from group
   .catch(next)
 });
 
-router.post('/', (req, res) => { //Add new group to database with users assosiated with new group
+router.post('/', (req, res) => { //Add new group to database with users assosiated to the new group
   Groups.findAll({
     where: {name : req.body.newGroup.name.trim()}
   })
@@ -74,7 +74,7 @@ router.post('/', (req, res) => { //Add new group to database with users assosiat
     .catch(err => console.log(err))
 });
 
-router.put('/add', (req,res,next) =>{   //associate users to a group
+router.put('/add', (req,res,next) =>{   //associate group to a user
   let group = null;
   Groups.findByPk(req.body.groupId)
   .then(res => group = res)
@@ -87,7 +87,7 @@ router.put('/add', (req,res,next) =>{   //associate users to a group
   .catch(err => console.log(err))
 })
 
-router.put('/remove', async(req,res,next) =>{   //req is reciving login info 
+router.put('/remove', async(req,res,next) =>{   //removing user association from a group
   let user = null;
   await Users.findByPk(req.body.id)
   .then(res => {
@@ -103,7 +103,7 @@ router.put('/remove', async(req,res,next) =>{   //req is reciving login info
   .catch(err => console.log(err))
 })
 
-router.put('/users',async (req,res) =>{
+router.put('/users',async (req,res) =>{ //associate user to a group
   let group = await Groups.findByPk(req.body.groupId).catch(e => console.log(e))
   for(let i = 0; i < req.body.users.length; i++)
   {
