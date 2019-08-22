@@ -34,9 +34,24 @@ module.exports = (io) => {
             console.log(`${socket.id} has joined room ${roomName}`);
         })
 
-        socket.on('invite-refresh', (filler) =>{
+        socket.on('refresh', (object) =>{
+            if(object.hasOwnProperty('newGroup'))
+            {
+                io.emit('refresh-groups', object);
+            }
+            if(object.hasOwnProperty('invite'))
+            {
+                io.emit('refresh-invitations', object);
+            }
+            if(object.hasOwnProperty('group'))
+            {
+                io.emit('refresh-existing-group', object)
+            }
+            if(object.hasOwnProperty('shrinkedGroup'))
+            {
+                io.emit('refresh-shrinked-group',object);
+            }
             //broadcast to all connected clients
-            io.emit('refresh-dashboard');
         })
       });
 }

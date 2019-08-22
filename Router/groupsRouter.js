@@ -75,13 +75,17 @@ router.post('/', (req, res) => { //Add new group to database with users assosiat
 });
 
 router.put('/add', async(req,res,next) =>{   //associate user to a group
-  console.log(req.body);
   let group = await Groups.findByPk(req.body.groupId).catch(err => console.log(err))
 
   let user = await Users.findByPk(req.body.id).catch(err => console.log(err))
 
-  group.addUsers(user);
-  res.status(200).send();
+  await group.addUsers(user);
+
+  let result = await Groups.findAll({
+    where: {id : req.body.groupId},
+    include: [{model: Users}]
+  })
+  res.status(200).send(result);
 })
 
 router.put('/remove', async(req,res,next) =>{   //removing user association from a group

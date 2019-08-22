@@ -7,7 +7,7 @@ router.get('/',async (req,res) => {     //get all invitations
     res.status(200).send(response);
 })
 router.post('/', async (req,res) => {   //create new invitations to the group for every member in users array
-    let {users,name,groupId,groupName} = req.body;
+    let {users,name,groupId,groupName} = req.body.newGroup;
     for(let i = 0; i< users.length; i++)
     {
         let exists = await Invitations.findAll({
@@ -40,6 +40,7 @@ router.put('/', async (req,res) =>{     //returns all invitations associated wit
 
     res.status(200).send(response);
 })
+
 
 router.post('/delete',async(req,res) =>{    //destroys a specific instance of an invitation
     let response = await Invitations.destroy({
