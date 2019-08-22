@@ -5,6 +5,7 @@ module.exports = (io) => {
 
     io.on('connection', function (socket) {
         console.log(`${socket.id} has connected to the server`);
+        io.emit('refresh-dashboard');
       
         socket.on('create', roomName => {
             console.log(`attempting to create ${roomName}`)
@@ -31,6 +32,11 @@ module.exports = (io) => {
         socket.on('enter-group', (roomName) => {
             socket.join(roomName);
             console.log(`${socket.id} has joined room ${roomName}`);
+        })
+
+        socket.on('invite-refresh', (filler) =>{
+            //broadcast to all connected clients
+            io.emit('refresh-dashboard');
         })
       });
 }

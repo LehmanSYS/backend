@@ -74,17 +74,14 @@ router.post('/', (req, res) => { //Add new group to database with users assosiat
     .catch(err => console.log(err))
 });
 
-router.put('/add', (req,res,next) =>{   //associate user to a group
-  let group = null;
-  Groups.findByPk(req.body.groupId)
-  .then(res => group = res)
-  .catch(err => console.log(err))
+router.put('/add', async(req,res,next) =>{   //associate user to a group
+  console.log(req.body);
+  let group = await Groups.findByPk(req.body.groupId).catch(err => console.log(err))
 
-  Users.findByPk(req.body.id)
-  .then(user =>{
-      group.addUsers(user);
-  })
-  .catch(err => console.log(err))
+  let user = await Users.findByPk(req.body.id).catch(err => console.log(err))
+
+  group.addUsers(user);
+  res.status(200).send();
 })
 
 router.put('/remove', async(req,res,next) =>{   //removing user association from a group

@@ -27,14 +27,6 @@ const db = require("../db");
     lat: {
       type: Sequelize.DECIMAL,
       allowNull: false
-    },
-    inviteSender: {
-      type: Sequelize.TEXT,
-      allowNull: true
-    },
-    inviteGroup: {
-      type: Sequelize.TEXT,
-      allowNull: true
     }
   });
 // exports.users = users; // ------------------- module.exports

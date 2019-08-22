@@ -18,7 +18,9 @@ router.post('/', async (req,res) => {   //create new invitations to the group fo
         let current = await Users.findByPk(users[i].id);
         await current.addInvitation(builtInvitation);
     }
-    res.status(200).send();
+
+    let response = await Invitations.findAll();
+    res.status(200).send(response);
 })
 
 router.put('/', async (req,res) =>{     //returns all invitations associated with a user
@@ -27,6 +29,16 @@ router.put('/', async (req,res) =>{     //returns all invitations associated wit
     })
 
     res.status(200).send(response);
+})
+
+router.post('/delete',async(req,res) =>{    //destroys a specific instance of an invitation
+    let response = await Invitations.destroy({
+        where: {
+            id: req.body.id
+        }
+    })
+
+    res.status(200).send();
 })
 
 module.exports = router;
