@@ -20,8 +20,8 @@ const seed = require('./Data/Seed');
 
 //Force: true basically wipes the local database clean.
 //this file is only run once, when the app is started.
-db.sync({ force: true }).then(async () => {
-  seed();
+db.sync({ force: false }).then(async () => {
+  //seed();
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 

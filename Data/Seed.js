@@ -1,15 +1,20 @@
-const Groups = require("../Database/Models/Groups");
-const Users = require("../Database/Models/Users");
-const Invitations = require('../Database/Models/Invitations');
-const Messages = require('../Database/Models/Messages');
+// const Groups = require("../Database/Models/Groups");
+// const Users = require("../Database/Models/Users");
+// const Invitations = require('../Database/Models/Invitations');
+// const Messages = require('../Database/Models/Messages');
+
+const {Groups,Users,Invitations,Messages} = require("../Database");
 
 const groups = require('./groups');
 const users = require('./users');
+const invitations = require('./invitations');
+const messages = require('./messages');
 
 const builtUsersArr = [];
 const builtGroupArr = [];
 const builtMessageArr = [];
 const builtInvitationArr = [];
+
 function getRandomInt(x) {
   return Math.floor((Math.random() * x) + 1);
 }
@@ -39,12 +44,12 @@ const populateMessagesTable = async(messages) =>{
   }
 }
 
-const populateInvitationssTable = async(invitations) =>{
+const populateInvitationsTable = async(invitations) =>{
   for(let i = 0; i< invitations.length; i++)
   {
     let current = invitations[i];
-    let builtMessage = create(current);
-    builtMessageArr.push(builtMessage);
+    let builtInvitation = Invitations.create(current);
+    builtInvitationArr.push(builtInvitation);
   }
 }
 
@@ -63,12 +68,33 @@ const associateGroupsTable = async () => {
   }
 }
 
+const associateInvitationsTable = async() => {
+  for(let i = 0; i < builtUsersArr.length; i++)
+  {
+    let current = builtUsersArr[i];
+    await current.addInvitations(i+1);
+  }
+}
+
+const associateMessagesTable = async() => {
+  for(let i = 0; i< builtGroupArr.length; i++)
+  {
+    let current = builtGroupArr[i];
+    await current.addMessages(i+1);
+  }
+}
+
 const seedDatabase = async () => {
   try {
     await populateUsersTable(users);
     await populateGroupsTable(groups);
+    await populateInvitationsTable(invitations);
+    await populateMessagesTable(messages);
     await associateUsersTable();
     await associateGroupsTable();
+    await associateInvitationsTable();
+    await associateMessagesTable();
+
     console.log('database has been re-seeded');
   }
   catch (err) {

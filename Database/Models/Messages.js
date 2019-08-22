@@ -11,7 +11,8 @@ const Messages = db.define("Messages", {
         allowNull: false
     },
     timestamp: {
-        type: Sequelize.DATE,
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
     }
 })

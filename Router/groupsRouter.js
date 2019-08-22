@@ -31,7 +31,7 @@ router.get("/", (req, res, next) => { // get all groups
   .catch(next)
 });
 
-router.put("/", (req, res, next) => { // get all users from a specific group
+router.put("/", (req, res, next) => { // get a specific group with associated users
   let data = req.body
   Groups.findAll({
     where:{
@@ -74,7 +74,7 @@ router.post('/', (req, res) => { //Add new group to database with users assosiat
     .catch(err => console.log(err))
 });
 
-router.put('/add', (req,res,next) =>{   //associate group to a user
+router.put('/add', (req,res,next) =>{   //associate user to a group
   let group = null;
   Groups.findByPk(req.body.groupId)
   .then(res => group = res)
@@ -82,7 +82,7 @@ router.put('/add', (req,res,next) =>{   //associate group to a user
 
   Users.findByPk(req.body.id)
   .then(user =>{
-      user.addGroups(group);//
+      group.addUsers(user);
   })
   .catch(err => console.log(err))
 })
