@@ -7,9 +7,19 @@ router.get('/',async (req,res) => {     //get all invitations
     res.status(200).send(response);
 })
 router.post('/', async (req,res) => {   //create new invitations to the group for every member in users array
-    let {users,name,groupId,groupName} = req.body.newGroup;
+    let {users,name,groupId,groupName} = req.body;
     for(let i = 0; i< users.length; i++)
     {
+        let exists = await Invitations.findAll({
+            where: {
+                groupId: groupId,
+                UserId: users[i].id
+            }
+        });
+        if(exists.length > 0)
+        {
+            continue;
+        }
         let builtInvitation = await Invitations.create({
             sender: name,
             groupName: groupName,
