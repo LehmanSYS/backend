@@ -19,6 +19,11 @@ module.exports = (io) => {
                 console.log("Room already exists");
             }
         });
+
+        socket.on('new-message', object =>{
+            let {message, name} = object;
+            io.to(name).emit('add-message', message);
+        })
       
         socket.on('disconnect', function(){
             console.log('user disconnected');

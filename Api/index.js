@@ -52,7 +52,7 @@ async function getUserETA(formData){ // object full of user and destination prop
     }
     let response = await googleMapsClient.directions(request).asPromise();
         let routes = response.json.routes;
-        console.log(routes);
+        //console.log(routes);
         if (routes.length > 0){
             let eta = routes[0].legs[0].duration.text;
             //path is an array of arrays of coordinates

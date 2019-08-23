@@ -19,7 +19,7 @@ router.post('/', async (req,res) =>{ //returns the route to destionation for all
 
 router.post('/eta', async (req,res,next) =>{ //returns the route to destionation for one user
     let userPaths = [];
-    console.log(req.body);
+    //console.log(req.body);
     for (let i = 0; i < req.body.workingGroup.users.length; i++){
         let request = {
             user: req.body.workingGroup.users[i],
