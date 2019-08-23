@@ -37,7 +37,7 @@ module.exports = (io) => {
         socket.on('refresh', (object) =>{
             if(object.hasOwnProperty('newGroup'))
             {
-                io.emit('refresh-groups', object);
+                io.emit('refresh-add-groups', object);
             }
             if(object.hasOwnProperty('invite'))
             {
