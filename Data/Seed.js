@@ -87,13 +87,13 @@ const associateMessagesTable = async() => {
 const seedDatabase = async () => {
   try {
     await populateUsersTable(users);
-    await populateGroupsTable(groups);
-    await populateInvitationsTable(invitations);
-    await populateMessagesTable(messages);
-    await associateUsersTable();
-    await associateGroupsTable();
-    await associateInvitationsTable();
-    await associateMessagesTable();
+    // await populateGroupsTable(groups);
+    // await populateInvitationsTable(invitations);
+    // await populateMessagesTable(messages);
+    // await associateUsersTable();
+    // await associateGroupsTable();
+    // await associateInvitationsTable();
+    // await associateMessagesTable();
 
     console.log('database has been re-seeded');
   }
