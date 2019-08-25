@@ -17,6 +17,7 @@ const apiRouter = require("./Router/apiRouter");
 const bodyParser = require("body-parser");
 const {db} = require("./Database");
 const seed = require('./Data/Seed');
+const cors = require('cors');
 
 //Force: true wipes the database clean.
 //this file is only run once, when the app is started.
@@ -25,12 +26,14 @@ db.sync({ force: false }).then(async () => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
-  app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers',' Origin, Content-Type, X-Auth-Token');
-    next();
-  });
+  // app.use((req, res, next) => {
+  //   res.setHeader("Access-Control-Allow-Origin", "*");
+  //   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  //   res.setHeader('Access-Control-Allow-Headers',' Origin, Content-Type, X-Auth-Token');
+  //   next();
+  // });
+
+  app.use(cors()); // <---- use cors middleware
 
   app.use("/api", apiRouter);
 });
