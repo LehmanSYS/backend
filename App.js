@@ -23,7 +23,7 @@ const cors = require('cors');
 //Force: true wipes the database clean.
 //this file is only run once, when the app is started.
 db.sync({ force: false }).then(async () => {
-  //seed();
+  seed();
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -40,6 +40,7 @@ db.sync({ force: false }).then(async () => {
 
   router.get('/', (req,res) =>{
     res.status(200).send(PORT);
-  })
+  });
+
   app.use("/port", router);
 });
