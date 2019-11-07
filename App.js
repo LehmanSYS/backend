@@ -14,7 +14,6 @@ module.exports = groupHandler;
 require('./Socket')(io);
 
 const apiRouter = require("./Router/apiRouter");
-const router = express.Router();
 const bodyParser = require("body-parser");
 const {db} = require("./Database");
 const seed = require('./Data/Seed');
@@ -37,10 +36,4 @@ db.sync({ force: false }).then(async () => {
   app.use(cors()); // <---- use cors middleware
 
   app.use("/api", apiRouter);
-
-  router.get('/', (req,res) =>{
-    res.status(200).send(PORT);
-  });
-
-  app.use("/port", router);
 });
