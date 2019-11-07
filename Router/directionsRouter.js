@@ -6,14 +6,19 @@ const {getUserRoute, getUserETA} = require('../Api');
 
 router.post('/', async (req,res) =>{ //returns the route to destionation for all user
     let userPaths = [];
+    //console.log(req.body.newGroup.users.length);
     for (let i = 0; i < req.body.newGroup.users.length; i++){
         let request = {
             user: req.body.newGroup.users[i],
             latitude: req.body.newGroup.latitude,
             longitude: req.body.newGroup.longitude
         }
-        userPaths.push(await getUserRoute(request));
+        //console.log(request);
+        let da = await getUserRoute(request)
+        //console.log(i);
+        userPaths.push(da);
     }
+    //console.log("done");
     res.status(200).send(userPaths);                 //must contain a response body so api works
 })
 
