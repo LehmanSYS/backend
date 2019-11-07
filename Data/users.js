@@ -26,8 +26,8 @@ let usersArray = [
         lat: 40.756124
     },
     {
-        name: "User 4",
-        email: 'spam@gmail.com',
+        name: "AJ",
+        email: 'pro@gmail.com',
         password: '7654321',
         image:
             "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1",
@@ -35,8 +35,8 @@ let usersArray = [
         lat: 40.741645
     },
     {
-        name: "User 5",
-        email: 'hacker@yahoo.com',
+        name: "Elise",
+        email: 'genius@yahoo.com',
         password: '1aA2DA31Hsdh$',
         image:
             "https://cdn3.iconfinder.com/data/icons/business-round-flat-vol-1-1/36/user_account_profile_avatar_person_student_male-512.png",
