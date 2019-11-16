@@ -1,3 +1,7 @@
+async function sendWeather(b) {
+    return b;
+}
+
 async function weather(latt, longg) {
   var clientId = "OTRlvBrQsDw";
   var clientSecret = "7IIOnt5VwOPEXqaaGkuzNK8E9JlrX16byYYZYv1Kd1G2CkgW2iDGQg";
@@ -22,12 +26,12 @@ async function weather(latt, longg) {
 
   const logEventsToConsole = events => {
     for (const event of events) {
-      // See https://developer.predicthq.com/resources/events/#fields for list of all event fields.
-      console.log(event);
-      console.log();
+      sendWeather(1);
     }
   };
-
+  if (latt > 40 && longg > 40){
+      return true;
+  }
   // 10km range around the -36.844480,174.768368 geopoint
   const withinParam = "10km@-36.844480,174.768368";
 
@@ -37,13 +41,7 @@ async function weather(latt, longg) {
     .search({category: "disasters", within: withinParam })
     .then(logEventsToConsole)
     .catch(err => console.error(err));
-
-  // OR if you know the place ID - example below search for events within the New York state (ID: 5128638)
-  // Sort by start date in descending order
-//   phqEvents
-//     .search({ category: "disasters", sort: "-start" })
-//     .then(logEventsToConsole)
-//     .catch(err => console.error(err));
+  return false;
 }
 
 module.exports = weather;

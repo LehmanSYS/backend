@@ -1,14 +1,14 @@
 const Sequelize = require("sequelize");
-const databaseName = "d589sf39oj64i6";
+const databaseName = "db54l75ugkldpl";
 
 console.log("Opening database connection");
 
 const db = new Sequelize(
   databaseName,
-  "irnrjpqtmpzzxw",
-  "5e321b861965722297b3adf2b0d9b75a486359361f01a66dc0593e019b2e7523",
+  "kjnvvabnwzzrgx",
+  "ace08f144177f64b420d1f1c0dc89ba0da59ee66a741c4ef57a291fe0fb2a546",
   {
-    host: "ec2-54-243-44-102.compute-1.amazonaws.com",
+    host: "ec2-174-129-253-144.compute-1.amazonaws.com",
     dialect: "postgres",
     dialectOptions: {
       ssl: true
