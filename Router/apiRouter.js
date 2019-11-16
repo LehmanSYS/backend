@@ -1,14 +1,12 @@
 const router = require("express").Router();
-const usersRouter = require("./usersRouter");
-const authRouter = require("./authRouter");
-const groupsRouter = require("./groupsRouter");
-const directionsRouter = require("./directionsRouter");
-const invitationsRouter = require('./invitationsRouter');
+const findRouter = require("./findRouter");
+const locationRouter = require("./locationRouter");
+const watsonRouter = require('./watsonRouter');
+const weatherRouter = require("./weatherRouter");
 
-router.use("/users", usersRouter);
-router.use("/auth", authRouter);
-router.use("/groups", groupsRouter);
-router.use("/directions", directionsRouter)
-router.use('/invitations', invitationsRouter)
+router.use("/location", locationRouter);
+router.use("/find", findRouter);
+router.use("/watson", watsonRouter);
+router.use("/weather",weatherRouter);
 
 module.exports = router;

@@ -6,6 +6,18 @@ const db = require("../db");
       type: Sequelize.TEXT,
       allowNull: false
     },
+    street: {
+      type: Sequelize.TEXT,
+      allowNull: true
+    },
+    state: {
+      type: Sequelize.TEXT,
+      allowNull: true
+    },
+    zip: {
+      type: Sequelize.TEXT,
+      allowNull: true
+    },
     longitude: {
       type: Sequelize.DECIMAL,
       allowNull: false
