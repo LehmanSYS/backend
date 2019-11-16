@@ -1,4 +1,4 @@
-﻿{
+﻿var fallout = {
     "Sheet 1": [
         {
             "name": "405 E. 63rd St.",
@@ -1961,4 +1961,6 @@
             "description": ""
         }
     ]
-}
+};
+
+module.exports = fallout;

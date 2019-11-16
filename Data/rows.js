@@ -1,4 +1,4 @@
-{
+var school = {
   "meta" : {
     "view" : {
       "id" : "addd-ji6a",
@@ -881,3 +881,5 @@
 , [ "row-sx4i.c85r~45cb", "00000000-0000-0000-A342-75390AEB66BE", 0, 1571862849, null, 1571862849, null, "{ }", "Louis D Brandeis HS", "New York", "POINT (-73.9740069021562 40.785926191269674)", "145 W 84 Street", "NY", "10024", "1", "Y", "1032128", "1012150001" ]
  ]
 }
+
+module.exports = school;

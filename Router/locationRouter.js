@@ -24,16 +24,18 @@ router.post('/address', async (req,res) =>{ //returns the coordinates for an inp
 router.post("/gps", async (req, res) => {
     let long = req.body.longitude;
     let lat = req.body.latitude;
+    console.log("hit");
 
-    const bool = await weather(lat, long);
+    // const bool = await weather(lat, long);
+    const bool = true
     const phone = "+16464062563";
     const sms = "the test message";
     if(bool)
     {
-        sendMessage(phone, sms);
+        sendMessage(phone, sms); 
     }
 
-    req.statusCode(200).send();
+    res.status(200).send();
 
 });
 
