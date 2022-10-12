@@ -39,7 +39,7 @@
     "pg-hstore": "^2.3.3",
     "polyline": "^0.2.0",
     "predicthq": "^0.1.1",
-    "read-excel-file": "^4.0.4",
+    "read-excel-file": "^5.5.0",
     "read-xml": "^3.0.0",
     "sequelize": "^5.15.1",
     "socket-io": "^1.0.0",
